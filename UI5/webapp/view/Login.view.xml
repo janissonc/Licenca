@@ -1,0 +1,22 @@
+<mvc:View
+    controllerName="sap.ui.demo/walkthrough.controller.Login"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+     >
+	
+  	
+		<Page >
+			<content>
+				<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+					<items>
+					<Input width="20rem" id="user" placeholder="User ID"></Input>
+					<Input width="20rem" id="pwd" placeholder="Password" type="Password"></Input>
+					<Button width="20rem" text="Login" type="Emphasized" press="onLoginTap"></Button>
+					</items>
+				</VBox>
+			</content>
+			
+		</Page>
+	
+</mvc:View>
