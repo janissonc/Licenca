@@ -1,116 +1,127 @@
 <mvc:View
 	height="100%"
+	xmlns:core="sap.ui.core"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:layout="sap.ui.layout"
 	xmlns:semantic="sap.f.semantic"
-	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio">
-
-	<semantic:SemanticPage
-		id="mySemanticPage"
-		headerPinnable="true"
-		toggleHeaderOnTitleClick="true"
-		preserveHeaderStateOnScroll="false"
-		titleAreaShrinkRatio="1:1.6:1.6"
-		showFooter="{/showFooter}">
-
-		<!-- Title Heading-->
+	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
+	>
+	
+	<semantic:SemanticPage id="page">
 		<semantic:titleHeading>
-			<Title text="{/title}" />
+			<Title
+				id="masterHeaderTitle"
+				text="{
+					parts: [
+						'TitleCount',
+						'titleCount'
+					]
+			}"/>
 		</semantic:titleHeading>
-
-		<!-- TitleExpanded content-->
-		<semantic:titleSnappedContent>
-			<Text text="{/titleSnappedContent/text}"/>
-		</semantic:titleSnappedContent>
-
-		<!-- TitleSnapped content-->
-		<semantic:titleExpandedContent>
-			<Text text="{/titleExpandedContent/text}"/>
-		</semantic:titleExpandedContent>
-
-		<!-- Header Content -->
-		<semantic:headerContent>
-			<layout:HorizontalLayout allowWrapping="true">
-				<layout:VerticalLayout class="sapUiMediumMarginEnd">
-					<ObjectAttribute title="Functional Area" text="{/objectDescription/category}"/>
-					<ObjectAttribute title="Cost Center" text="{/objectDescription/center}"/>
-					<ObjectAttribute title="Email" text="{/objectDescription/email}"/>
-				</layout:VerticalLayout>
-
-				<layout:VerticalLayout>
-					<ObjectAttribute title="Availability"/>
-					<ObjectStatus text="In Stock" state="{/objectDescription/status}" />
-				</layout:VerticalLayout>
-			</layout:HorizontalLayout>
-		</semantic:headerContent>
-
-		<!-- Content -->
 		<semantic:content>
-			<Table
-				id="idProductsTable"
-				inset="false"
-				items="{/recipient/dados}"
-				class="sapFSemanticPageAlignContent"
-				width="auto">
-
-				<columns>
-					<Column>
-						<Text text="cardCode"/>
-					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
-						<Text text="cardName"/>
-					</Column>
-				</columns>
-
+			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
+			<List
+				id="list"
+				width="auto"
+				class="sapFDynamicPageAlignContent"
+				items="{
+					path: 'oData>/recipient/dados',
+					parameters: {expand: 'Customer'},
+					sorter: {
+						path: 'OrderID',
+						descending: true
+					},
+					groupHeaderFactory: '.createGroupHeader'
+				}"
+				busyIndicatorDelay="{masterView>/delay}"
+				noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished=".onUpdateFinished"
+				selectionChange=".onSelectionChange">
+				<infoToolbar>
+					<Toolbar
+						active="true"
+						id="filterBar"
+						visible="{masterView>/isFilterBarVisible}"
+						press=".onOpenViewSettings">
+						<Title
+							id="filterBarLabel"
+							text="{masterView>/filterBarLabel}" />
+					</Toolbar>
+				</infoToolbar>
+				<headerToolbar>
+					<OverflowToolbar>
+						<SearchField
+							id="searchField"
+							showRefreshButton="true"
+							tooltip="teste"
+							width="100%"
+							search=".onSearch">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									minWidth="150px"
+									maxWidth="240px"
+									shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<ToolbarSpacer/>
+						<Button
+							id="filterButton"
+							press=".onOpenViewSettings"
+							icon="sap-icon://filter"
+							type="Transparent"/>
+						<Button
+							id="groupButton"
+							press=".onOpenViewSettings"
+							icon="sap-icon://group-2"
+							type="Transparent"/>
+					</OverflowToolbar>
+				</headerToolbar>
 				<items>
-					<ColumnListItem vAlign="Middle">
-						<cells>
-							<Text text="{cardCode}"/>
-							<Text text="{cardName}"/>
-						</cells>
-					</ColumnListItem>
+					<ObjectListItem
+						type="Inactive"
+						press=".onSelectionChange"
+						title="{
+							parts: [
+								'teste',
+								'cardName'
+							],
+							formatter: 'jQuery.sap.formatMessage'
+						}"
+						>
+						<firstStatus>
+							<ObjectStatus
+								state="{
+									parts: [
+										{path: 'RequiredDate'},
+										{path: 'ShippedDate'},
+										{path: 'OrderID'}
+									],
+									formatter:'.formatter.deliveryState'
+								}"
+								text="{
+									parts: [
+										{path: 'RequiredDate'},
+										{path: 'ShippedDate'},
+										{path: 'OrderID'}
+									],
+									formatter:'.formatter.deliveryText'
+								}"/>
+
+						</firstStatus>
+						<attributes>
+							<ObjectAttribute id="companyName" text="{Customer/CompanyName}" />
+							<ObjectAttribute title="teste"
+								text="teste" />
+						</attributes>
+					</ObjectListItem>
 				</items>
-			</Table>
+			</List>
 		</semantic:content>
-
-		<semantic:titleMainAction>
-			<semantic:TitleMainAction id="editAction" text="Edit" press="onEdit"/>
-		</semantic:titleMainAction>
-
-		 <!--Semantic ShareMenu Buttons-->
-		<semantic:discussInJamAction>
-			<semantic:DiscussInJamAction />
-		</semantic:discussInJamAction>
-
-		<semantic:saveAsTileAction>
-			<Button icon= "sap-icon://add-favorite" text="Save as Tile"/>
-		</semantic:saveAsTileAction>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction />
-		</semantic:sendEmailAction>
-
-		<semantic:sendMessageAction>
-			<semantic:SendMessageAction />
-		</semantic:sendMessageAction>
-
-		<!-- Semantic Footer Buttons -->
-		<semantic:footerMainAction>
-			<semantic:FooterMainAction text="Save" press="onSave"/>
-		</semantic:footerMainAction>
-
-		<semantic:footerCustomActions>
-			<Button id="cancelAction" text="Cancel" press="onCancel"/>
-		</semantic:footerCustomActions>
-
-		<semantic:messagesIndicator>
-			<semantic:MessagesIndicator press="onMessagesButtonPress"/>
-		</semantic:messagesIndicator>
-
-		<semantic:draftIndicator>
-			<DraftIndicator state="Saved"/>
-		</semantic:draftIndicator>
-
 	</semantic:SemanticPage>
+			
 </mvc:View>

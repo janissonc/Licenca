@@ -25,7 +25,7 @@ sap.ui.define([
                         localStorage.setItem("token", res.token);
                         localStorage.setItem("dadosUser", JSON.stringify({cdUsuario : res.cdUsuario,nmUsuario : res.nmUsuario}));
                        
-                        oRouter.navTo("parceiroNegocio");
+                        oRouter.navTo("overview");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);

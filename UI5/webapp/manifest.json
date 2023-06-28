@@ -29,6 +29,7 @@
         }
     },
     "sap.ui": {
+        "technology": "UI5",
         "_version": "1.1.0",
         "icons": {
             "icon": "<icon>",
@@ -86,6 +87,8 @@
                 "dataSource": "<dataSourceAlias>",
                 "settings": {}
             }
+           
+
         },
         "rootView": {
             "viewName": "sap.ui.demo.walkthrough.view.App",
@@ -95,11 +98,12 @@
         },
         "handleValidation": false,
         "config": {
-          
+            
         },
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
+                "type": "View",
                 "viewType": "XML",
                 "viewPath": "sap.ui.demo.walkthrough.view",
                 "controlId": "app",
@@ -109,6 +113,11 @@
             "routes": [
                 {
                     "pattern": "",
+                    "name": "overview",
+                    "target": "overview"
+                },
+                {
+                    "pattern": "login",
                     "name": "login",
                     "target": "login"
                 },
@@ -120,11 +129,15 @@
             ],
             "targets": {
                 "login": {
-                    "viewId": "login",
+                    "id": "login",
                     "viewName": "Login"
                 },
+                "overview": {
+                    "id": "overview",
+                    "viewName": "Overview"
+                },
                 "parceiroNegocio": {
-                    "viewId": "parceiroNegocio",
+                    "id": "parceiroNegocio",
                     "viewName": "ParceiroNegocio"
                 }
 
