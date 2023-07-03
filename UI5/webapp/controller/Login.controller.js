@@ -13,21 +13,26 @@ sap.ui.define([
 			
 			if(oUser !="" && oPwd != ""){				
                 var oRouter = this.getRouter();
+                var caminho = "http://192.168.12.46:3347/Login?usuario="+oUser+"&senha="+oPwd;
+                var caminho1 = "http://192.168.12.46:3347/Login";
+                sap.ui.core.BusyIndicator.show(0);
                 $.ajax({
-                    type: "POST",
-                    url: "http://192.168.12.46:3347/Login?usuario=admin&senha=123",
-                    data: {Login:oUser,senha:oPwd},
+                    method: "POST",
+                    url: caminho,
+                    data: {usuario:oUser,senha:oPwd},
                     //crossDomain: true,
+                    //processData: true,
                     //headers: {'key1':'value1','key2':'value2'}
                     contentType: "application/json",
                     success: function (res) {
                         console.log(res)
                         localStorage.setItem("token", res.token);
                         localStorage.setItem("dadosUser", JSON.stringify({cdUsuario : res.cdUsuario,nmUsuario : res.nmUsuario}));
-                       
+                        sap.ui.core.BusyIndicator.hide(0);
                         oRouter.navTo("overview");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                        sap.ui.core.BusyIndicator.hide(0);
                       console.log("Got an error response: " + textStatus + errorThrown);
                     }
                 })
