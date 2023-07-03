@@ -16,6 +16,46 @@ sap.ui.define([
                 oRouter.navTo("login");     
             }
 
+
+            var teste = [];
+            if(token){
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.12.46:3347/ParceiroNegocioCompleto",
+                    data: {GroupCode:-1},
+                    //crossDomain: true,
+                    headers: {'Token':token},
+                    contentType: "application/json",
+                    success: function (res) {
+                        teste = res;
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("Got an error response: " + textStatus + errorThrown);
+                      localStorage.setItem("token", null);
+                      localStorage.setItem("dadosUser", null);
+                      var oRouter = this.getRouter();
+                      oRouter.navTo("login");
+                    }
+                }).then(()=>{
+                    var oData = {
+                        recipient:{
+                            name: "UI5",
+                            dados:teste
+                        },
+                        
+                    };
+                    var oModel = new JSONModel(oData);
+                    this.setModel(oModel);
+                    
+                });
+            }
+            else{
+                console.log("Usuario não logado");
+                var oRouter = this.getRouter();
+                oRouter.navTo("login");     
+            }
+
+
             
             
         },
@@ -37,6 +77,10 @@ sap.ui.define([
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);
+                      localStorage.setItem("token", null);
+                      localStorage.setItem("dadosUser", null);
+                      var oRouter = this.getRouter();
+                      oRouter.navTo("login");
                     }
                 }).then(()=>{
                     var oData = {

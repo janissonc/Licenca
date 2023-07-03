@@ -6,122 +6,32 @@
 	xmlns:layout="sap.ui.layout"
 	xmlns:semantic="sap.f.semantic"
 	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
+	id="teste"
 	>
-	
-	<semantic:SemanticPage id="page">
-		<semantic:titleHeading>
-			<Title
-				id="masterHeaderTitle"
-				text="{
-					parts: [
-						'TitleCount',
-						'titleCount'
-					]
-			}"/>
-		</semantic:titleHeading>
-		<semantic:content>
-			<!-- For client side filtering add this to the items attribute: parameters: {operationMode: 'Client'}}" -->
-			<List
-				id="list"
-				width="auto"
-				class="sapFDynamicPageAlignContent"
-				items="{
-					path: 'dadosPN>/recipient/dados',
-					parameters: {expand: 'dados'},
-					sorter: {
-						path: 'OrderID',
-						descending: true
-					},
-					groupHeaderFactory: '.createGroupHeader'
-				}"
-				busyIndicatorDelay="{masterView>/delay}"
-				noDataText="{masterView>/noDataText}"
-				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
-				growing="true"
-				growingScrollToLoad="true"
-				updateFinished=".onUpdateFinished"
-				selectionChange=".onSelectionChange">
-				<infoToolbar>
-					<Toolbar
-						active="true"
-						id="filterBar"
-						visible="{masterView>/isFilterBarVisible}"
-						press=".onOpenViewSettings">
-						<Title
-							id="filterBarLabel"
-							text="{masterView>/filterBarLabel}" />
-					</Toolbar>
-				</infoToolbar>
-				<headerToolbar>
-					<OverflowToolbar>
-						<SearchField
-							id="searchField"
-							showRefreshButton="true"
-							tooltip="teste"
-							width="100%"
-							search=".onSearch">
-							<layoutData>
-								<OverflowToolbarLayoutData
-									minWidth="150px"
-									maxWidth="240px"
-									shrinkable="true"
-									priority="NeverOverflow"/>
-							</layoutData>
-						</SearchField>
-						<ToolbarSpacer/>
-						<Button
-							id="filterButton"
-							press=".onOpenViewSettings"
-							icon="sap-icon://filter"
-							type="Transparent"/>
-						<Button
-							id="groupButton"
-							press=".onOpenViewSettings"
-							icon="sap-icon://group-2"
-							type="Transparent"/>
-					</OverflowToolbar>
-				</headerToolbar>
-				<items>
-					<ObjectListItem
-						type="Inactive"
-						press=".onSelectionChange"
-						title="{
-							parts: [
-								'teste',
-								'cardName'
-							],
-							formatter: 'jQuery.sap.formatMessage'
-						}"
-						>
-						<firstStatus>
-							<ObjectStatus
-								state="{
-									parts: [
-										{path: 'RequiredDate'},
-										{path: 'ShippedDate'},
-										{path: 'OrderID'}
-									],
-									formatter:'.formatter.deliveryState'
-								}"
-								text="{
-									parts: [
-										{path: 'RequiredDate'},
-										{path: 'ShippedDate'},
-										{path: 'OrderID'}
-									],
-									formatter:'.formatter.deliveryText'
-								}"/>
+		<Table
+				id="idProductsTable"
+				inset="false"
+				items="{/recipient/dados}"
+				class="sapFSemanticPageAlignContent"
+				width="auto">
 
-						</firstStatus>
-						<attributes>
-							<ObjectAttribute id="companyName" text="{Customer/CompanyName}" />
-							<ObjectAttribute title="teste"
-								text="teste" />
-						</attributes>
-					</ObjectListItem>
+
+				<columns>
+					<Column>
+						<Text text="cardCode"/>
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="cardName"/>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<Text text="{cardCode}"/>
+							<Text text="{cardName}"/>
+						</cells>
+					</ColumnListItem>
 				</items>
-			</List>
-		</semantic:content>
-	</semantic:SemanticPage>
-			
+			</Table>
 </mvc:View>
