@@ -26,8 +26,8 @@
 				width="auto"
 				class="sapFDynamicPageAlignContent"
 				items="{
-					path: 'oData>/recipient/dados',
-					parameters: {expand: 'Customer'},
+					path: 'dadosPN>/recipient/dados',
+					parameters: {expand: 'dados'},
 					sorter: {
 						path: 'OrderID',
 						descending: true
