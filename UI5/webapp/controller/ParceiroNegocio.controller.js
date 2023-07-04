@@ -41,8 +41,7 @@ sap.ui.define([
                         recipient:{
                             name: "UI5",
                             dados:teste
-                        },
-                        
+                        }
                     };
                     var oModel = new JSONModel(oData);
                     this.setModel(oModel);
@@ -53,13 +52,9 @@ sap.ui.define([
                 console.log("Usuario não logado");
                 var oRouter = this.getRouter();
                 oRouter.navTo("login");     
-            }
-
-
-            
-            
+            } 
         },
-
+        
         onAfterRendering: function() {
             console.log("entrou no init");
             var token =  localStorage.getItem("token");
