@@ -29,16 +29,14 @@ sap.ui.define([
 
 		onItemSelect: function (oEvent) {
 			var oItem = oEvent.getParameter("item");
-			var oScrollContainer = this.byId(oItem.getKey());
-			console.log(oScrollContainer);
-			oScrollContainer.removeAllContent()
-
+			var oScrollContainer = this.byId("idScrollContainer");
+			oScrollContainer.removeAllContent();
 			var oView = XMLView.create({
 				viewName: "sap.ui.demo.walkthrough.view."+oItem.getKey()
-			  });
-			  oView.then(function(oViewInstance) {
+			});
+			oView.then(function(oViewInstance) {
 				oScrollContainer.addContent(oViewInstance);
-			  });
+			});
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 		},
 

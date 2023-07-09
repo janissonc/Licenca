@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+	height="100%"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	id="sistemaCreate"
+	>
+	<Dialog>
+		<form:SimpleForm id="createSistema"
+			maxConteinerCols="2"
+			etitable="true"
+			layout="ResponsiveGridLayout"
+			title="Adicionar sistema"
+			labelSpanL="2"
+			labelSpanM="2"
+			emptySpanL="0"
+			emptySpanM="0"
+			columnsL="1"
+			columnsM="1"
+			class="editableForm"
+
+		>
+			<content>
+			<core:Title text="basic information">
+			</content>
+		</form:SimpleForm>
+	</Dialog>
+		
+			
+</core:FragmentDefinition>

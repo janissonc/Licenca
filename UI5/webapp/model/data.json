@@ -9,9 +9,9 @@
 					
 		},
 		{
-			"title": "Login",
+			"title": "Sistema",
 			"icon": "sap-icon://building",
-			"key": "Login"
+			"key": "sistema.Sistema"
 					
 		}
 	],

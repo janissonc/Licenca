@@ -6,7 +6,7 @@
 	xmlns:layout="sap.ui.layout"
 	xmlns:semantic="sap.f.semantic"
 	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
-	id="teste"
+	id="ParceiroNegocio"
 	>
 	
 		<Table

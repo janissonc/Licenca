@@ -1,18 +1,18 @@
 sap.ui.define([
-    "./BaseController",
+    "../BaseController",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/resource/ResourceModel"
 ],function(BaseController,MessageToast,JSONModel,ResourceModel){
     "use strict";
-    return BaseController.extend("sap.ui.demo.walkthrough.ParceiroNegocio",{
+    return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
         
         onInit: function(){
             console.log("entrou no init");
             var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
             if(!token){
                 console.log("Usuario não logado");
+                var oRouter = this.getRouter();
                 oRouter.navTo("login");     
             }
 
@@ -21,23 +21,64 @@ sap.ui.define([
             if(token){
                 $.ajax({
                     type: "POST",
-                    url: "http://192.168.12.46:3347/ParceiroNegocioCompleto",
-                    data: {GroupCode:-1},
+                    url: "http://192.168.12.46:3347/SistemaCompleto",
+                    data: JSON.stringify({}),
                     //crossDomain: true,
                     headers: {'Token':token},
                     contentType: "application/json",
                     success: function (res) {
                         teste = res;
-                        
+                        sap.ui.core.BusyIndicator.hide(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);
-                      console.log(jqXHR);
-                    //   localStorage.removeItem("token");
-                    //   localStorage.removeItem("dadosUser");
-                     
                       sap.ui.core.BusyIndicator.hide(0);
-                      oRouter.navTo("login");
+                    }
+                }).then(()=>{
+                    var oData = {
+                        recipient:{
+                            name: "UI5",
+                            dados:teste
+                        },
+                        
+                    };
+                    var oModel = new JSONModel(oData);
+                    this.setModel(oModel);
+                    sap.ui.core.BusyIndicator.hide(0);
+                });
+            }
+            else{
+                console.log("Usuario não logado");
+                var oRouter = this.getRouter();
+                sap.ui.core.BusyIndicator.hide(0);
+                oRouter.navTo("login");   
+
+            }
+
+            
+            
+        },
+
+        onAfterRendering: function() {
+            console.log("entrou no onAfterRendering");
+            var token =  localStorage.getItem("token");
+            var teste = [];
+            sap.ui.core.BusyIndicator.show(0);
+            if(token){
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.12.46:3347/SistemaCompleto",
+                    data: JSON.stringify({}),
+                    //crossDomain: true,
+                    headers: {'Token':token},
+                    contentType: "application/json",
+                    success: function (res) {
+                        teste = res.data;
+                        sap.ui.core.BusyIndicator.hide(0);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                      console.log("Got an error response: " + textStatus + errorThrown);
+                      sap.ui.core.BusyIndicator.hide(0);
                     }
                 }).then(()=>{
                     var oData = {
@@ -59,53 +100,13 @@ sap.ui.define([
                 sap.ui.core.BusyIndicator.hide(0);
                 oRouter.navTo("login");     
             }
-
-            
-            
         },
 
-        onAfterRendering: function() {
-            console.log("entrou no init");
-            var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
-            var teste = [];
-            if(token){
-                $.ajax({
-                    type: "POST",
-                    url: "http://192.168.12.46:3347/ParceiroNegocioCompleto",
-                    data: {GroupCode:-1},
-                    //crossDomain: true,
-                    headers: {'Token':token},
-                    contentType: "application/json",
-                    success: function (res) {
-                        teste = res;
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("Got an error response: " + textStatus + errorThrown);
-                      console.log(jqXHR);
-                    //   localStorage.setItem("token", null);
-                    //   localStorage.setItem("dadosUser", null);
-                     
-                      oRouter.navTo("login");
-                    }
-                }).then(()=>{
-                    var oData = {
-                        recipient:{
-                            name: "UI5",
-                            dados:teste
-                        },
-                        
-                    };
-                    var oModel = new JSONModel(oData);
-                    this.setModel(oModel);
-                    
-                });
-            }
-            else{
-                console.log("Usuario não logado");
-                oRouter.navTo("login");     
-            }
-        },
+        onAdd: function(oEvent){
+          this.dialog = sap.ui.xmlfragment("sistemaCreate","fragmentViews.SistemaCreate",this);
+          console.log("this.newSistemaDialog ",this.dialog )
+          //this.newSistemaDialog.open();
+        }
 
     });
 });

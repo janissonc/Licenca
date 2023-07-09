@@ -13,13 +13,13 @@ sap.ui.define([
 			
 			if(oUser !="" && oPwd != ""){				
                 var oRouter = this.getRouter();
-                var caminho = "http://192.168.12.46:3347/Login?usuario="+oUser+"&senha="+oPwd;
-                var caminho1 = "http://192.168.12.46:3347/Login";
+              
+                var caminho = "http://192.168.12.46:3347/Login";
                 sap.ui.core.BusyIndicator.show(0);
                 $.ajax({
                     method: "POST",
                     url: caminho,
-                    data: {usuario:oUser,senha:oPwd},
+                    data: JSON.stringify({usuario:oUser,senha:oPwd}),
                     //crossDomain: true,
                     //processData: true,
                     //headers: {'key1':'value1','key2':'value2'}
