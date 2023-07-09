@@ -8,13 +8,13 @@
 	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
 	id="ParceiroNegocio"
 	>
-	
 		<Table
 				id="idProductsTable"
 				inset="false"
 				items="{/recipient/dados}"
 				class="sapFSemanticPageAlignContent"
 				width="auto">
+
 
 				<columns>
 					<Column>
@@ -34,5 +34,4 @@
 					</ColumnListItem>
 				</items>
 			</Table>
-			
 </mvc:View>

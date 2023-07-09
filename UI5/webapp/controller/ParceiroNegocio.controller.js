@@ -16,6 +16,7 @@ sap.ui.define([
                 oRouter.navTo("login");     
             }
 
+
             var teste = [];
             sap.ui.core.BusyIndicator.show(0);
             if(token){
@@ -44,8 +45,7 @@ sap.ui.define([
                         recipient:{
                             name: "UI5",
                             dados:teste
-                        },
-                        
+                        }
                     };
                     var oModel = new JSONModel(oData);
                     this.setModel(oModel);
@@ -58,12 +58,9 @@ sap.ui.define([
                 var oRouter = this.getRouter();
                 sap.ui.core.BusyIndicator.hide(0);
                 oRouter.navTo("login");     
-            }
-
-            
-            
+            } 
         },
-
+        
         onAfterRendering: function() {
             console.log("entrou no init");
             var token =  localStorage.getItem("token");
@@ -96,7 +93,7 @@ sap.ui.define([
                         },
                         
                     };
-                    var oModel = new JSONModel(oData);
+                    var oModel = new JSONModel(oData,'dadosPN');
                     this.setModel(oModel);
                     
                 });
