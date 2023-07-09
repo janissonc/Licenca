@@ -12,6 +12,7 @@ sap.ui.define([
             var token =  localStorage.getItem("token");
             if(!token){
                 console.log("Usuario não logado");
+                var oRouter = this.getRouter();
                 oRouter.navTo("login");     
             }
             
