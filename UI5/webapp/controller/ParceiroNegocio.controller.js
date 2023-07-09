@@ -10,13 +10,12 @@ sap.ui.define([
         onInit: function(){
             console.log("entrou no init");
             var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
             if(!token){
                 console.log("Usuario não logado");
                 oRouter.navTo("login");     
             }
-
-
+            
+            
             var teste = [];
             sap.ui.core.BusyIndicator.show(0);
             if(token){
@@ -32,10 +31,11 @@ sap.ui.define([
                         
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                      var oRouter = this.getRouter();
                       console.log("Got an error response: " + textStatus + errorThrown);
                       console.log(jqXHR);
-                    //   localStorage.removeItem("token");
-                    //   localStorage.removeItem("dadosUser");
+                        //   localStorage.removeItem("token");
+                        //   localStorage.removeItem("dadosUser");
                      
                       sap.ui.core.BusyIndicator.hide(0);
                       oRouter.navTo("login");
@@ -64,7 +64,7 @@ sap.ui.define([
         onAfterRendering: function() {
             console.log("entrou no init");
             var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
+            
             var teste = [];
             if(token){
                 $.ajax({
@@ -80,9 +80,9 @@ sap.ui.define([
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);
                       console.log(jqXHR);
-                    //   localStorage.setItem("token", null);
-                    //   localStorage.setItem("dadosUser", null);
-                     
+                        //   localStorage.setItem("token", null);
+                        //   localStorage.setItem("dadosUser", null);
+                        var oRouter = this.getRouter();
                       oRouter.navTo("login");
                     }
                 }).then(()=>{
