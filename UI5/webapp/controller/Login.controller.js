@@ -13,10 +13,6 @@ sap.ui.define([
 			
 			if(oUser !="" && oPwd != ""){				
                 var oRouter = this.getRouter();
-<<<<<<< HEAD
-              
-=======
->>>>>>> 8689c784a49cf1276ebac29624b934cd6d6ef350
                 var caminho = "http://192.168.12.46:3347/Login";
                 sap.ui.core.BusyIndicator.show(0);
                 $.ajax({
