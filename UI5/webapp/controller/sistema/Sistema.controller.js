@@ -102,11 +102,11 @@ sap.ui.define([
             }
         },
 
-        onAdd: function(oEvent){
-          this.dialog = sap.ui.xmlfragment("sistemaCreate","fragmentViews.SistemaCreate",this);
+        onAddSistema: function(oEvent){
+          var dialog = sap.ui.xmlfragment("sistemaCreate","fragmentViews.SistemaCreate",this);
           console.log("this.newSistemaDialog ",this.dialog )
-          //this.newSistemaDialog.open();
-        }
+          dialog.newSistemaDialog.open();
+        },
 
     });
 });
