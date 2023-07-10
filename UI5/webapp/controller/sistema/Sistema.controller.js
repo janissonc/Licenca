@@ -102,10 +102,17 @@ sap.ui.define([
             }
         },
 
-        onAdd: function(oEvent){
-          var dialog = sap.ui.xmlfragment("sistemaCreate","sap.ui.demo.walkthrough.sistema.SistemaCreate",this);
-          console.log("this.newSistemaDialog ",this.dialog )
-          dialog.newSistemaDialog.open();
+        onAdd: function(){
+            
+            if (!this.pDialog) {
+                this.pDialog = this.loadFragment({
+                    name: "sap.ui.demo.walkthrough.view.sistema.SistemaCreate"
+                });
+            } 
+
+            this.pDialog.then(function(oDialog) {
+                oDialog.open();
+            });
         },
 
     });
