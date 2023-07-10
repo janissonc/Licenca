@@ -1,0 +1,30 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core" >
+   <Dialog
+      id="helloDialog"
+      title="Hello World">
+
+      <content>
+         <VBox>
+           <Label text="Nome do Sistema" />
+           <Input value="{/nomeSistema}" />
+   
+           <Label text="Controlar Usuário" />
+           <CheckBox selected="{/controlarUsuario}" />
+   
+           <Label text="Tipo de Controle" />
+           <RadioButtonGroup columns="1" selectedIndex="{/tipoControle}">
+             <RadioButton text="Por Login" />
+             <RadioButton text="Por Tela" />
+             <RadioButton text="Por Máquina" />
+           </RadioButtonGroup>
+         </VBox>
+       </content>
+       <buttons>
+         <Button text="Salvar" press=".onSave" />
+         <Button text="Cancelar" press=".onCancel" />
+       </buttons>
+
+   </Dialog>
+</core:FragmentDefinition>

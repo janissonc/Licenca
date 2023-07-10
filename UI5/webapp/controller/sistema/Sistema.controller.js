@@ -115,5 +115,11 @@ sap.ui.define([
             });
         },
 
+        onCancel:function(){
+            this.pDialog.then(function(oDialog) {
+                oDialog.close();
+            });
+        }
+
     });
 });
