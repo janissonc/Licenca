@@ -5,8 +5,13 @@
 	xmlns:form="sap.ui.layout.form"
      >
 	
-	<VBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+	<VBox 
+		fitContainer="true" 
+		justifyContent="Center" 
+		alignItems="Center" 
+		>
 		<items>
+			<Image id="Logo" src="{logo>/imagePath}" width="23rem" />
 			<Input width="20rem" id="user" placeholder="User ID"></Input>
 			<Input width="20rem" id="pwd" placeholder="Password" type="Password"></Input>
 			<Button width="20rem" text="Login" type="Emphasized" press="onLoginTap"></Button>

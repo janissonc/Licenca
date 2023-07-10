@@ -6,7 +6,12 @@ sap.ui.define([
 ],function(BaseController,MessageToast,JSONModel,ResourceModel){
     "use strict";
     return BaseController.extend("sap.ui.demo.walkthrough.Login",{
-       
+        onInit:function(){
+            const sPath = sap.ui.require.toUrl("sap/ui/demo/walkthrough/imagens/icons-192.png");
+            const oModel = new JSONModel({ imagePath: sPath });
+            this.getView().setModel(oModel, "logo");
+        },
+
         onLoginTap : function(){
 			var oUser = this.getView().byId("user").getValue();  //get input value data in oUser variable 
 			var oPwd = this.getView().byId("pwd").getValue();    //get input value data in oPwd variable

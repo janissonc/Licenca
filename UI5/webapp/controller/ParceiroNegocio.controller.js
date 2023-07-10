@@ -83,7 +83,7 @@ sap.ui.define([
                       console.log(jqXHR);
                         //   localStorage.setItem("token", null);
                         //   localStorage.setItem("dadosUser", null);
-                        var oRouter = this.getRouter();
+                      var oRouter = this.getRouter();
                       oRouter.navTo("login");
                     }
                 }).then(()=>{
@@ -101,6 +101,7 @@ sap.ui.define([
             }
             else{
                 console.log("Usuario não logado");
+                var oRouter = this.getRouter();
                 oRouter.navTo("login");     
             }
         },
