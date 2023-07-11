@@ -15,8 +15,8 @@ sap.ui.define([
             // }
             if(!token){
                 console.log("Usuario não logado");
-                //var oRouter = this.getRouter();
-                this.oRouter.navTo("login");     
+                var oRouter = this.getRouter();
+                oRouter.navTo("login");     
             }
         },
 

@@ -10,10 +10,10 @@ sap.ui.define([
         onInit: function(){
             
             var token =  localStorage.getItem("token");
-            //this.oRouter = this.getRouter();
+            
             if(!token){
-                
-                this.oRouter.navTo("login");     
+                var oRouter = this.getRouter();
+                oRouter.navTo("login");      
             }
         },
         
