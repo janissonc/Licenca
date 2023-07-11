@@ -47,7 +47,7 @@
 							<Text text="{nmSistema}"/>
 							<Text text="{status}"/>
 							<HBox >
-								<Button text="" press="handlerEdit" icon="sap-icon://edit"/>
+								<Button text="" press="onEdit" icon="sap-icon://edit"/>
 								<Button text="" press="handlerDelete" icon="sap-icon://delete"/>
 							</HBox>
 							

@@ -1,19 +1,20 @@
 <core:FragmentDefinition
    xmlns="sap.m"
    xmlns:core="sap.ui.core" 
-   id="formSistema"
+   id="formSistemaEdit"
    >
    <Dialog
-      id="addSistema"
-      title="Adicionar Sistema">
+      id="helloDialog"
+      title="Alteração do sistema: {/sistema/cdSistema}">
 
       <content>
          <VBox>
            <Label text="Nome do Sistema" />
-           <Input value="{/nomeSistema}" id="nmSistema" />
+           <Input value="{/sistema/cdSistema}" id="cdSistema" visible="false"/>
+           <Input value="{/sistema/nmSistema}" id="nmSistema" />
    
            <Label text="Controlar Usuário" />
-           <CheckBox selected="{/controlarUsuario}" id="controlarUsuario" />
+           <CheckBox selected="{/sistema/controlarUsuario}" id="controlarUsuario" />
    
            <Label text="Tipo de Controle" />
            <RadioButtonGroup columns="1" selectedIndex="{/tipoControle}" id="tipoControle">
@@ -24,7 +25,7 @@
          </VBox>
        </content>
        <buttons>
-         <Button text="Salvar" press=".onSave" />
+         <Button text="Salvar" press=".onHandlerEdit" />
          <Button text="Cancelar" press=".onCancel" />
        </buttons>
 

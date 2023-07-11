@@ -110,23 +110,14 @@ sap.ui.define([
                 headers: {'Token':token},
                 contentType: "application/json",
                 success: function (res) {
-                    teste = res;
                     sap.ui.core.BusyIndicator.hide(0);
+                    MessageToast.show("Adicionado com sucesso")
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                   console.log("Got an error response: " + textStatus + errorThrown);
                   sap.ui.core.BusyIndicator.hide(0);
                 }
             }).then(()=>{
-                var oData = {
-                    recipient:{
-                        name: "UI5",
-                        dados:teste
-                    },
-                    
-                };
-                var oModel = new JSONModel(oData);
-                this.setModel(oModel);
                 sap.ui.core.BusyIndicator.hide(0);
             });
         },
@@ -176,6 +167,78 @@ sap.ui.define([
                 });
 
            
+        },
+
+        onEdit:function(oEvent){
+            var token =  localStorage.getItem("token");
+            if(!token){
+                console.log("Usuario não logado");
+                
+                //var oRouter = this.getRouter();
+                this.oRouter.navTo("login");     
+            }
+            var sObjectId =  oEvent.getSource().getBindingContext().getObject();
+            var oData = {
+                sistema:sObjectId
+            };
+            var oModel = new JSONModel(oData);
+            this.setModel(oModel);
+
+            if (!this.pDialog) {
+                this.pDialog = this.loadFragment({
+                    id: "formSistema",
+                    name: "sap.ui.demo.walkthrough.view.sistema.SistemaEdit"
+                });
+            } 
+
+            this.pDialog.then(function(oDialog) {
+                oDialog.open();
+            });
+        },
+
+        onHandlerEdit:function(){
+            var token =  localStorage.getItem("token");
+            if(!token){
+                console.log("Usuario não logado");
+                
+                //var oRouter = this.getRouter();
+                this.oRouter.navTo("login");     
+            }
+            sap.ui.core.BusyIndicator.show(0);
+            var fragmentId = this.getView().createId("formSistema");
+            var oCdSistema = sap.ui.core.Fragment.byId(fragmentId, "cdSistema").getValue();
+            var oNmSistema = sap.ui.core.Fragment.byId(fragmentId, "nmSistema").getValue();
+            var oControlarUsuario = sap.ui.core.Fragment.byId(fragmentId, "controlarUsuario").getSelected();
+            var oTipoControle = sap.ui.core.Fragment.byId(fragmentId, "tipoControle").getSelectedButton().getText();
+          
+           
+
+            const sistemaObj = {
+                "cdSistema": oCdSistema,
+                "nmSistema": oNmSistema,
+                "status": true,
+                "controlaUsuarios": oControlarUsuario
+            }
+           const url =  this.getURL("UpdateSistema")
+          
+            $.ajax({
+                type: "PATCH",
+                url: url,
+                data: JSON.stringify(sistemaObj),
+                //crossDomain: true,
+                headers: {'Token':token},
+                contentType: "application/json",
+                success: function (res) {
+                    sap.ui.core.BusyIndicator.hide(0);
+                    MessageToast.show("Alterado com sucesso")
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("Got an error response: " + textStatus + errorThrown);
+                  sap.ui.core.BusyIndicator.hide(0);
+                }
+            }).then(()=>{
+                sap.ui.core.BusyIndicator.hide(0);
+            });
         }
 
     });
