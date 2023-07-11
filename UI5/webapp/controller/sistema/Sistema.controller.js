@@ -2,8 +2,9 @@ sap.ui.define([
     "../BaseController",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
     "sap/ui/model/resource/ResourceModel"
-],function(BaseController,MessageToast,JSONModel,ResourceModel){
+],function(BaseController,MessageToast,JSONModel,MessageBox,ResourceModel){
     "use strict";
     return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
         
@@ -20,11 +21,10 @@ sap.ui.define([
         },
 
         onBeforeRendering: function() {
-            console.log("entrou no onAfterRendering");
+            const url  = this.getURL("SistemaCompleto");
             var token =  localStorage.getItem("token");
             var sistemasReturn = [];
             sap.ui.core.BusyIndicator.show(0);
-            const url  = this.getURL("SistemaCompleto");
             if(token){
                 $.ajax({
                     type: "POST",
@@ -100,10 +100,11 @@ sap.ui.define([
                 "status": true,
                 "controlaUsuarios": oControlarUsuario
             }
-
+           const url =  this.getURL("InsertSistema")
+          
             $.ajax({
                 type: "PUT",
-                url: `http://192.168.12.46:3347/InsertSistema`,
+                url: url,
                 data: JSON.stringify(sistemaObj),
                 //crossDomain: true,
                 headers: {'Token':token},
@@ -128,6 +129,53 @@ sap.ui.define([
                 this.setModel(oModel);
                 sap.ui.core.BusyIndicator.hide(0);
             });
+        },
+
+        handlerDelete:function(oEvent){
+            var token =  localStorage.getItem("token");
+            if(!token){
+                console.log("Usuario não logado");
+                
+                //var oRouter = this.getRouter();
+                this.oRouter.navTo("login");     
+            }
+            var sObjectId =  oEvent.getSource().getBindingContext().getObject();
+            let url = "";
+            console.log("delete",sObjectId.cdSistema)
+            if(sObjectId){
+                url =  this.getURL(`DeleteSistema/?cdSistema=${sObjectId.cdSistema}`)
+            }
+
+            MessageBox.warning("Deseja mesmo deletar esse dado? ", {
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                emphasizedAction: MessageBox.Action.OK,
+                    onClose: function (sAction) {
+                        if(sAction == "OK"){
+                            $.ajax({
+                                type: "DELETE",
+                                url: url,
+                                data: JSON.stringify({}),
+                                //crossDomain: true,
+                                headers: {'Token':token},
+                                contentType: "application/json",
+                                success: function (res) {
+                                    sap.ui.core.BusyIndicator.hide(0);
+                                    MessageToast.show("Deletado com sucesso")
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                console.log("Got an error response: " + textStatus + errorThrown);
+                                sap.ui.core.BusyIndicator.hide(0);
+                                }
+                            }).then(()=>{
+                                
+                                sap.ui.core.BusyIndicator.hide(0);
+                            });
+                        }
+                        
+                    }
+                });
+
+           
         }
 
     });

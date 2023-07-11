@@ -46,7 +46,11 @@
 							<Text text="{cdSistema}"/>
 							<Text text="{nmSistema}"/>
 							<Text text="{status}"/>
-							<Button text="" press="handlerEdit" icon="sap-icon://edit"/>
+							<HBox >
+								<Button text="" press="handlerEdit" icon="sap-icon://edit"/>
+								<Button text="" press="handlerDelete" icon="sap-icon://delete"/>
+							</HBox>
+							
 						</cells>
 					</ColumnListItem>
 				</items>
