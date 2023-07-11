@@ -26,7 +26,7 @@ sap.ui.define([
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: JSON.stringify({GroupCode:-1}),
+                    data: JSON.stringify({groupCode:-1}),
                     //crossDomain: true,
                     headers: {'Token':token},
                     contentType: "application/json",
