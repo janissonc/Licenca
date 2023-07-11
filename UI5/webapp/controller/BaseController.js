@@ -14,6 +14,10 @@ sap.ui.define([
 			return this.getOwnerComponent().getRouter();
 		},
 
+		getURL : function (sEndPoint) {
+			return `http://192.168.12.46:3347/${sEndPoint}`;
+		},
+
 		/**
 		 * Convenience method for getting the view model by name in every controller of the application.
 		 * @public

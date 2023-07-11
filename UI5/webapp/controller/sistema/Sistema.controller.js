@@ -8,72 +8,33 @@ sap.ui.define([
     return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
         
         onInit: function(){
-            console.log("entrou no init");
             var token =  localStorage.getItem("token");
+            // if(!this.oRouter){
+            //     this.oRouter = this.getRouter();
+            // }
             if(!token){
                 console.log("Usuario não logado");
-                var oRouter = this.getRouter();
-                oRouter.navTo("login");     
+                //var oRouter = this.getRouter();
+                this.oRouter.navTo("login");     
             }
-
-            var teste = [];
-            sap.ui.core.BusyIndicator.show(0);
-            if(token){
-                $.ajax({
-                    type: "POST",
-                    url: "http://192.168.12.46:3347/SistemaCompleto",
-                    data: JSON.stringify({}),
-                    //crossDomain: true,
-                    headers: {'Token':token},
-                    contentType: "application/json",
-                    success: function (res) {
-                        teste = res;
-                        sap.ui.core.BusyIndicator.hide(0);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                      console.log("Got an error response: " + textStatus + errorThrown);
-                      sap.ui.core.BusyIndicator.hide(0);
-                    }
-                }).then(()=>{
-                    var oData = {
-                        recipient:{
-                            name: "UI5",
-                            dados:teste
-                        },
-                        
-                    };
-                    var oModel = new JSONModel(oData);
-                    this.setModel(oModel);
-                    sap.ui.core.BusyIndicator.hide(0);
-                });
-            }
-            else{
-                console.log("Usuario não logado");
-                var oRouter = this.getRouter();
-                sap.ui.core.BusyIndicator.hide(0);
-                oRouter.navTo("login");   
-
-            }
-
-            
-            
         },
 
-        onAfterRendering: function() {
+        onBeforeRendering: function() {
             console.log("entrou no onAfterRendering");
             var token =  localStorage.getItem("token");
-            var teste = [];
+            var sistemasReturn = [];
             sap.ui.core.BusyIndicator.show(0);
+            const url  = this.getURL("SistemaCompleto");
             if(token){
                 $.ajax({
                     type: "POST",
-                    url: "http://192.168.12.46:3347/SistemaCompleto",
+                    url: url,
                     data: JSON.stringify({}),
                     //crossDomain: true,
                     headers: {'Token':token},
                     contentType: "application/json",
                     success: function (res) {
-                        teste = res.data;
+                        sistemasReturn = res.data;
                         sap.ui.core.BusyIndicator.hide(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -82,11 +43,7 @@ sap.ui.define([
                     }
                 }).then(()=>{
                     var oData = {
-                        recipient:{
-                            name: "UI5",
-                            dados:teste
-                        },
-                        
+                        sistemas:sistemasReturn
                     };
                     var oModel = new JSONModel(oData);
                     this.setModel(oModel);
@@ -96,9 +53,9 @@ sap.ui.define([
             }
             else{
                 console.log("Usuario não logado");
-                var oRouter = this.getRouter();
+                //var oRouter = this.getRouter();
                 sap.ui.core.BusyIndicator.hide(0);
-                oRouter.navTo("login");     
+                this.oRouter.navTo("login");     
             }
         },
 
@@ -106,6 +63,7 @@ sap.ui.define([
             
             if (!this.pDialog) {
                 this.pDialog = this.loadFragment({
+                    id: "formSistema",
                     name: "sap.ui.demo.walkthrough.view.sistema.SistemaCreate"
                 });
             } 
@@ -118,6 +76,57 @@ sap.ui.define([
         onCancel:function(){
             this.pDialog.then(function(oDialog) {
                 oDialog.close();
+            });
+        },
+
+        onSave:function(){
+            var token =  localStorage.getItem("token");
+            if(!token){
+                console.log("Usuario não logado");
+                
+                //var oRouter = this.getRouter();
+                this.oRouter.navTo("login");     
+            }
+            sap.ui.core.BusyIndicator.show(0);
+            var fragmentId = this.getView().createId("formSistema");
+            var oNmSistema = sap.ui.core.Fragment.byId(fragmentId, "nmSistema").getValue();
+            var oControlarUsuario = sap.ui.core.Fragment.byId(fragmentId, "controlarUsuario").getSelected();
+            var oTipoControle = sap.ui.core.Fragment.byId(fragmentId, "tipoControle").getSelectedButton().getText();
+          
+           
+
+            const sistemaObj = {
+                "nmSistema": oNmSistema,
+                "status": true,
+                "controlaUsuarios": oControlarUsuario
+            }
+
+            $.ajax({
+                type: "PUT",
+                url: `http://192.168.12.46:3347/InsertSistema`,
+                data: JSON.stringify(sistemaObj),
+                //crossDomain: true,
+                headers: {'Token':token},
+                contentType: "application/json",
+                success: function (res) {
+                    teste = res;
+                    sap.ui.core.BusyIndicator.hide(0);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  console.log("Got an error response: " + textStatus + errorThrown);
+                  sap.ui.core.BusyIndicator.hide(0);
+                }
+            }).then(()=>{
+                var oData = {
+                    recipient:{
+                        name: "UI5",
+                        dados:teste
+                    },
+                    
+                };
+                var oModel = new JSONModel(oData);
+                this.setModel(oModel);
+                sap.ui.core.BusyIndicator.hide(0);
             });
         }
 

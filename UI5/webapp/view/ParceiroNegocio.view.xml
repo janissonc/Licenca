@@ -11,7 +11,7 @@
 		<Table
 				id="idProductsTable"
 				inset="false"
-				items="{/recipient/dados}"
+				items="{/parceiroNegocio}"
 				class="sapFSemanticPageAlignContent"
 				width="auto">
 

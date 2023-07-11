@@ -1,3 +1,5 @@
+
+
 sap.ui.define(
     [
         "sap/ui/core/UIComponent",
@@ -8,9 +10,7 @@ sap.ui.define(
         "use strict";
 
         return UIComponent.extend("sap.ui.demo.walkthrough.Component",{
-            metadata: {
-              manifest:"json"
-            },
+         
             init : function(){
                 UIComponent.prototype.init.apply(this,arguments);
                 var oData = {
