@@ -23,6 +23,7 @@ sap.ui.define([
             
             var parceiroNegocioReturn = [];
             const url  = this.getURL("ParceiroNegocioCompleto");
+            //var oRouter = this.getRouter();
             if(token){
                 $.ajax({
                     type: "POST",
@@ -37,11 +38,12 @@ sap.ui.define([
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);
-                      console.log(jqXHR);
-                        //   localStorage.setItem("token", null);
-                        //   localStorage.setItem("dadosUser", null);
-                      var oRouter = this.getRouter();
-                      oRouter.navTo("login");
+                      var response = jqXHR.responseJSON;
+                      if(response.status == false && response.responseCode == 401){
+                        oRouter.navTo("login");
+                      }
+                      
+                      
                     }
                 }).then(()=>{
                     var oData = {
