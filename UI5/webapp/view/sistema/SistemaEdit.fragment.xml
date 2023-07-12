@@ -9,12 +9,19 @@
 
       <content>
          <VBox>
-           <Label text="Nome do Sistema" />
-           <Input value="{/sistema/cdSistema}" id="cdSistema" visible="false"/>
-           <Input value="{/sistema/nmSistema}" id="nmSistema" />
+            <Label text="Nome do Sistema" />
+            <Input value="{/sistema/cdSistema}" id="cdSistema" visible="false"/>
+            <Input value="{/sistema/nmSistema}" id="nmSistema" />
    
-           <Label text="Controlar Usuário" />
-           <CheckBox selected="{/sistema/controlarUsuario}" id="controlarUsuario" />
+            <Label text="Controlar Usuário" />
+            <CheckBox selected="{/sistema/controlarUsuario}" id="controlarUsuario" />
+            
+            <Label text="Ativo" />
+           	<Switch state="true" customTextOn="Yes" customTextOff="No" id="ativo">
+				      <layoutData>
+					      <FlexItemData growFactor="1" />
+				      </layoutData>
+			      </Switch>
    
            <Label text="Tipo de Controle" />
            <RadioButtonGroup columns="1" selectedIndex="{/tipoControle}" id="tipoControle">
