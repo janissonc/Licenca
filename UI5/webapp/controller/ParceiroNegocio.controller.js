@@ -18,6 +18,7 @@ sap.ui.define([
         },
         
         onBeforeRendering: function() {
+            debugger
             var token =  localStorage.getItem("token");
             
             var parceiroNegocioReturn = [];
@@ -32,7 +33,7 @@ sap.ui.define([
                     contentType: "application/json",
                     success: function (res) {
                         console.log(res)
-                        parceiroNegocioReturn = res.data;
+                        parceiroNegocioReturn = res.Data;
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);

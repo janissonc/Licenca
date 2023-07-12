@@ -9,10 +9,8 @@ sap.ui.define([
     return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
         
         onInit: function(){
+            debugger
             var token =  localStorage.getItem("token");
-            // if(!this.oRouter){
-            //     this.oRouter = this.getRouter();
-            // }
             if(!token){
                 console.log("Usuario não logado");
                 var oRouter = this.getRouter();
@@ -21,6 +19,7 @@ sap.ui.define([
         },
 
         onBeforeRendering: function() {
+            debugger
             const url  = this.getURL("SistemaCompleto");
             var token =  localStorage.getItem("token");
             var sistemasReturn = [];
@@ -34,22 +33,21 @@ sap.ui.define([
                     headers: {'Token':token},
                     contentType: "application/json",
                     success: function (res) {
-                        sistemasReturn = res.data;
+                        sistemasReturn = res.Data;
+                        
                         sap.ui.core.BusyIndicator.hide(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                       console.log("Got an error response: " + textStatus + errorThrown);
                       sap.ui.core.BusyIndicator.hide(0);
                     }
-                }).then(()=>{
+                }).done(()=>{
                     var oData = {
                         sistemas:sistemasReturn
                     };
                     var oModel = new JSONModel(oData);
                     this.setModel(oModel);
-                    sap.ui.core.BusyIndicator.hide(0);
-                    
-                });
+                })
             }
             else{
                 console.log("Usuario não logado");

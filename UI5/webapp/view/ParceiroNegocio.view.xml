@@ -18,18 +18,18 @@
 
 				<columns>
 					<Column>
-						<Text text="cardCode"/>
+						<Text text="CardCode"/>
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true">
-						<Text text="cardName"/>
+						<Text text="CardName"/>
 					</Column>
 				</columns>
 
 				<items>
 					<ColumnListItem vAlign="Middle">
 						<cells>
-							<Text text="{cardCode}"/>
-							<Text text="{cardName}"/>
+							<Text text="{CardCode}"/>
+							<Text text="{CardName}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
