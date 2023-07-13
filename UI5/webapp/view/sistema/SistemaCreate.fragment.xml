@@ -1,16 +1,19 @@
 <core:FragmentDefinition
+
    xmlns="sap.m"
    xmlns:core="sap.ui.core" 
    id="formSistema"
+   
    >
-   <Dialog
-      id="addSistema"
-      title="Adicionar Sistema">
+   <Dialog id="addSistema" title="Adicionar Sistema" class="SistemaDialog " contentWidth="80%" >
+    
 
-      <content>
-         <VBox>
-           <Label text="Nome do Sistema" />
-           <Input value="{/nomeSistema}" id="nmSistema" />
+      <content class="SistemaDialogcenter" >
+ <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
+        <Label text="Nome do Sistema" />
+        <Input value="{/nomeSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
+        
+      
    
            <Label text="Controlar Usuário" />
            <CheckBox selected="{/controlarUsuario}" id="controlarUsuario" />
@@ -30,3 +33,4 @@
 
    </Dialog>
 </core:FragmentDefinition>
+

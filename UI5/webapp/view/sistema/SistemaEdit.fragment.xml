@@ -5,19 +5,24 @@
    >
    <Dialog
       id="helloDialog"
-      title="Alteração do sistema: {/sistema/cdSistema}">
+      title="Alteração do sistema: {/sistema/cdSistema}" 
+      class="SistemaDialog " 
+      >
 
-      <content>
-         <VBox>
+      <content class="SistemaDialogcenter" >
+ <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
             <Label text="Nome do Sistema" />
             <Input value="{/sistema/cdSistema}" id="cdSistema" visible="false"/>
             <Input value="{/sistema/nmSistema}" id="nmSistema" />
    
             <Label text="Controlar Usuário" />
-            <CheckBox selected="{/sistema/controlarUsuario}" id="controlarUsuario" />
-            
+            	<Switch state="true" customTextOn="Sim" customTextOff="Não" id="controlarUsuario">
+               <layoutData>
+					      <FlexItemData growFactor="1" />
+				      </layoutData>
+			      </Switch>
             <Label text="Ativo" />
-           	<Switch state="true" customTextOn="Yes" customTextOff="No" id="ativo">
+           	<Switch state="true" customTextOn="Sim" customTextOff="Não" id="ativo">
 				      <layoutData>
 					      <FlexItemData growFactor="1" />
 				      </layoutData>

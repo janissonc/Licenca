@@ -1,0 +1,21 @@
+.SistemaDialog {
+     Width: 80% !important;
+    max-width: 600px !important;
+    align-items:  stretch;
+  }
+  .SistemaDialog {
+    Width: 80% !important;
+   max-width: 600px !important;
+   margin-left: 10%;
+ }
+ 
+  .txtNmSistema {
+    /* max-width: 70%;
+    width: 70% !important; */
+     
+   margin-left: 10% !important;
+   max-width: 300px !important;
+  }
+  .customFieldWidth .sapMInputBase {
+    width: 90%;
+  }
