@@ -33,7 +33,7 @@ sap.ui.define([
                         localStorage.setItem("token", res.token);
                         localStorage.setItem("dadosUser", JSON.stringify({cdUsuario : res.cdUsuario,nmUsuario : res.nmUsuario}));
                         sap.ui.core.BusyIndicator.hide(0);
-                        oRouter.navTo("overview");
+                        oRouter.navTo("sistema");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         sap.ui.core.BusyIndicator.hide(0);

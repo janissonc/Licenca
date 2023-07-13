@@ -113,8 +113,8 @@
             "routes": [
                 {
                     "pattern": "",
-                    "name": "parceiroNegocio",
-                    "target": "parceiroNegocio"
+                    "name": "login",
+                    "target": "login"
                 },
                 {
                     "pattern": "parceiroNegocio",
@@ -136,17 +136,28 @@
             "targets": {
                 "login": {
                     "id": "login",
-                    "viewName": "Login"
+                    "viewName": "Login",
+                    "viewLevel":1
+                },
+                "base": {
+
+                    "viewName": "Main",
+                    "viewLevel": 2
+                    
                 },
                 "parceiroNegocio": {
+                    "parent": "base",
                     "id": "parceiroNegocio",
                     "controlAggregation": "pages",
-                    "viewName": "ParceiroNegocio"
+                    "viewName": "ParceiroNegocio",
+                    "controlId": "mainLicenca"
                 },
                 "sistema": {
+                    "parent": "base",
                     "id": "sistema",
                     "controlAggregation": "pages",
-                    "viewName": "sistema.Sistema"
+                    "viewName": "sistema.Sistema",
+                    "controlId": "mainLicenca"
                 }
 
             }

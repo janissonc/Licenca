@@ -13,7 +13,7 @@ sap.ui.define([
 	var ButtonType = library.ButtonType,
 		PlacementType = library.PlacementType;
 
-	return Controller.extend("sap.ui.demo.walkthrough.Overview", {
+	return Controller.extend("sap.ui.demo.walkthrough.Main", {
 
 		onInit: function () {
 			debugger
@@ -39,15 +39,11 @@ sap.ui.define([
 		onItemSelect: function (oEvent) {
 			debugger
 			var oItem = oEvent.getParameter("item");
-			var oScrollContainer = this.byId("idScrollContainer");
-			oScrollContainer.removeAllContent();
-			var oView = XMLView.create({
-				viewName: "sap.ui.demo.walkthrough.view."+oItem.getKey()
-			});
-			oView.then(function(oViewInstance) {
-				oScrollContainer.addContent(oViewInstance);
-			});
-			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
+			oItem.getKey()
+           
+			var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo(oItem.getKey());
+		
 		},
 
 		handleUserNamePress: function (event) {
