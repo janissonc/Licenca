@@ -17,7 +17,7 @@ sap.ui.define([
             }
         },
         
-        onBeforeRendering: function() {
+        onAfterRendering: function() {
             debugger
             var token =  localStorage.getItem("token");
             

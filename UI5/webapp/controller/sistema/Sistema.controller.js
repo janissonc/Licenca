@@ -77,6 +77,12 @@ sap.ui.define([
             });
         },
 
+        onCancelEdit:function(){
+            this.pDialogEdit.then(function(oDialog) {
+                oDialog.close();
+            });
+        },
+
         onSave:function(){
             var token =  localStorage.getItem("token");
             var oRouter = this.getRouter();
@@ -180,6 +186,7 @@ sap.ui.define([
 
         onEdit:function(oEvent){
             var token =  localStorage.getItem("token");
+            var oView = this.getView();
             if(!token){
                 console.log("Usuario não logado");
                 
@@ -190,17 +197,19 @@ sap.ui.define([
             var oData = {
                 sistema:sObjectId
             };
-            var oModel = new JSONModel(oData);
+            var oModel = new JSONModel(oData,'sistemaEdit');
             this.setModel(oModel);
 
-            if (!this.pDialog) {
-                this.pDialog = this.loadFragment({
-                    id: "formSistema",
-                    name: "sap.ui.demo.walkthrough.view.sistema.SistemaEdit"
+            if (!this.pDialogEdit) {
+                this.pDialogEdit = this.loadFragment({
+                    id: "formSistemaEdit",
+                    name: "sap.ui.demo.walkthrough.view.sistema.SistemaEdit",
+                    controller: this
                 });
             } 
 
-            this.pDialog.then(function(oDialog) {
+            this.pDialogEdit.then(function(oDialog) {
+                oView.addDependent(oDialog);
                 oDialog.open();
             });
         },

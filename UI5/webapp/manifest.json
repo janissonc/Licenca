@@ -1,7 +1,7 @@
 {
     "_version": "1.1.0",
 	
-	"start_url": "<startUrl>",
+	"start_url": "",
 	
     "sap.app": {
         "_version": "1.1.0",
@@ -11,11 +11,11 @@
         "applicationVersion": {
             "version": "1.0.0"
         },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
+        "title": "",
+        "description": "",
         "tags": {
             "keywords": [
-                "{{<keyword1>}}", "{{<keyword2>}}"
+                "", ""
             ]
         },
         "dataSources": {
@@ -32,12 +32,12 @@
         "technology": "UI5",
         "_version": "1.1.0",
         "icons": {
-            "icon": "<icon>",
-            "favIcon": "<favIcon>",
-            "phone": "<phone>",
-            "phone@2": "<phone@2>",
-            "tablet": "<tablet>",
-            "tablet@2": "<tablet@2>"
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
         },
         "deviceTypes": {
             "desktop": true,
@@ -54,7 +54,7 @@
         "resources": {
             "js": [
                 {
-                    "uri": "<uri>"
+                    "uri": ""
                 }
             ],
             "css": [
@@ -84,7 +84,7 @@
                 "dataSource": "invoiceRemote"
             },
             "": {
-                "dataSource": "<dataSourceAlias>",
+                "dataSource": "",
                 "settings": {}
             }
            
@@ -106,15 +106,20 @@
                 "type": "View",
                 "viewType": "XML",
                 "viewPath": "sap.ui.demo.walkthrough.view",
-                "controlId": "app",
+                "controlId": "appLicenca",
                 "controlAggregation": "pages",
                 "async": true
             },
             "routes": [
                 {
                     "pattern": "",
-                    "name": "overview",
-                    "target": "overview"
+                    "name": "parceiroNegocio",
+                    "target": "parceiroNegocio"
+                },
+                {
+                    "pattern": "parceiroNegocio",
+                    "name": "parceiroNegocio",
+                    "target": "parceiroNegocio"
                 },
                 {
                     "pattern": "login",
@@ -122,31 +127,34 @@
                     "target": "login"
                 },
                 {
-                    "pattern": "parceiroNegocio",
-                    "name": "parceiroNegocio",
-                    "target": "parceiroNegocio"
+                    "pattern": "sistema",
+                    "name": "sistema",
+                    "target": "sistema"
                 }
+            
             ],
             "targets": {
                 "login": {
                     "id": "login",
                     "viewName": "Login"
                 },
-                "overview": {
-                    "id": "overview",
-                    "viewName": "Overview"
-                },
                 "parceiroNegocio": {
                     "id": "parceiroNegocio",
+                    "controlAggregation": "pages",
                     "viewName": "ParceiroNegocio"
+                },
+                "sistema": {
+                    "id": "sistema",
+                    "controlAggregation": "pages",
+                    "viewName": "sistema.Sistema"
                 }
 
             }
           
         },
         "extends": {
-            "component" : "<extendedComponentId>",
-			"minVersion": "<minComp1Version>",
+            "component" : "component",
+			"minVersion": "",
 			"extensions": {}
         },
         "contentDensities": {

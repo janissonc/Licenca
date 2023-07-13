@@ -4,42 +4,29 @@
    id="formSistemaEdit"
    >
    <Dialog
-      id="helloDialog"
-      title="Alteração do sistema: {/sistema/cdSistema}" 
+      
+      title="Alteração do sistema: {sistemaEdit>/sistema/cdSistema}" 
       class="SistemaDialog " 
       >
 
       <content class="SistemaDialogcenter" >
- <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
+        <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
             <Label text="Nome do Sistema" />
-            <Input value="{/sistema/cdSistema}" id="cdSistema" visible="false"/>
-            <Input value="{/sistema/nmSistema}" id="nmSistema" />
+            <Input value="{sistemaEdit>/sistema/cdSistema}" id="cdSistemaEdit" visible="false"/>
+            <Input value="{sistemaEdit>/sistema/nmSistema}" id="nmSistemaEdit" />
    
-            <Label text="Controlar Usuário" />
-            	<Switch state="true" customTextOn="Sim" customTextOff="Não" id="controlarUsuario">
-               <layoutData>
-					      <FlexItemData growFactor="1" />
-				      </layoutData>
-			      </Switch>
             <Label text="Ativo" />
-           	<Switch state="true" customTextOn="Sim" customTextOff="Não" id="ativo">
+           	<Switch state="true" customTextOn="Sim" customTextOff="Não" id="ativoEdit">
 				      <layoutData>
 					      <FlexItemData growFactor="1" />
 				      </layoutData>
 			      </Switch>
-   
-           <Label text="Tipo de Controle" />
-           <RadioButtonGroup columns="1" selectedIndex="{/tipoControle}" id="tipoControle">
-             <RadioButton text="Por Login" />
-             <RadioButton text="Por Tela" />
-             <RadioButton text="Por Máquina" />
-           </RadioButtonGroup>
-         </VBox>
-       </content>
-       <buttons>
-         <Button text="Salvar" press=".onHandlerEdit" />
-         <Button text="Cancelar" press=".onCancel" />
-       </buttons>
+        </VBox>
+      </content>
+      <buttons>
+        <Button text="Salvar" press=".onHandlerEdit" />
+        <Button text="Cancelar" press=".onCancelEdit" />
+      </buttons>
 
    </Dialog>
 </core:FragmentDefinition>

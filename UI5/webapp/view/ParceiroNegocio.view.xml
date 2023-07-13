@@ -8,7 +8,9 @@
 	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
 	id="ParceiroNegocio"
 	>
-		<Table
+	<Page title="Parceiro de Negócio">
+		<content>
+			<Table
 				id="idProductsTable"
 				inset="false"
 				items="{/parceiroNegocio}"
@@ -16,22 +18,24 @@
 				width="auto">
 
 
-				<columns>
-					<Column>
-						<Text text="CardCode"/>
-					</Column>
-					<Column minScreenWidth="Tablet" demandPopin="true">
-						<Text text="CardName"/>
-					</Column>
-				</columns>
+					<columns>
+						<Column>
+							<Text text="CardCode"/>
+						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="CardName"/>
+						</Column>
+					</columns>
 
-				<items>
-					<ColumnListItem vAlign="Middle">
-						<cells>
-							<Text text="{CardCode}"/>
-							<Text text="{CardName}"/>
-						</cells>
-					</ColumnListItem>
-				</items>
+					<items>
+						<ColumnListItem vAlign="Middle">
+							<cells>
+								<Text text="{CardCode}"/>
+								<Text text="{CardName}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
 			</Table>
+		</content>
+	</Page>
 </mvc:View>

@@ -9,27 +9,18 @@
     
 
       <content class="SistemaDialogcenter" >
- <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
-        <Label text="Nome do Sistema" />
-        <Input value="{/nomeSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
+        <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
+          <Label text="Nome do Sistema" />
+          <Input value="{/nomeSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
         
-      
    
-           <Label text="Controlar Usuário" />
-           <CheckBox selected="{/controlarUsuario}" id="controlarUsuario" />
-   
-           <Label text="Tipo de Controle" />
-           <RadioButtonGroup columns="1" selectedIndex="{/tipoControle}" id="tipoControle">
-             <RadioButton text="Por Login" />
-             <RadioButton text="Por Tela" />
-             <RadioButton text="Por Máquina" />
-           </RadioButtonGroup>
-         </VBox>
-       </content>
-       <buttons>
-         <Button text="Salvar" press=".onSave" />
-         <Button text="Cancelar" press=".onCancel" />
-       </buttons>
+          
+        </VBox>
+      </content>
+      <buttons>
+        <Button text="Salvar" press=".onSave" />
+        <Button text="Cancelar" press=".onCancel" />
+      </buttons>
 
    </Dialog>
 </core:FragmentDefinition>
