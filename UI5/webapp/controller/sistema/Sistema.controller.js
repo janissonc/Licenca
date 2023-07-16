@@ -2,9 +2,11 @@ sap.ui.define([
     "../BaseController",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox",
-    "sap/ui/model/resource/ResourceModel"
-],function(BaseController,MessageToast,JSONModel,MessageBox,ResourceModel){
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	'sap/ui/model/Sorter',
+    "sap/m/MessageBox"
+],function(BaseController,MessageToast,JSONModel,Filter,FilterOperator,Sorter,MessageBox){
     "use strict";
     return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
         
@@ -16,6 +18,7 @@ sap.ui.define([
                 var oRouter = this.getRouter();
                 oRouter.navTo("login");     
             }
+            this._bDescendingSort = false;
         },
 
         onBeforeRendering: function() {
@@ -23,6 +26,7 @@ sap.ui.define([
             const url  = this.getURL("SistemaCompleto");
             var token =  localStorage.getItem("token");
             var sistemasReturn = [];
+            var oRouter = this.getRouter();
             sap.ui.core.BusyIndicator.show(0);
             if(token){
                 $.ajax({
@@ -38,15 +42,24 @@ sap.ui.define([
                         sap.ui.core.BusyIndicator.hide(0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
+                        debugger
                       console.log("Got an error response: " + textStatus + errorThrown);
+                      console.log(jqXHR.responseJSON);
                       sap.ui.core.BusyIndicator.hide(0);
+                      let response = jqXHR.responseJSON;
+                      if(response.Status == false && response.ResponseCode == 401){
+                        
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("dadosUser");
+                        oRouter.navTo("login");
+                      }
                     }
                 }).done(()=>{
                     var oData = {
                         sistemas:sistemasReturn
                     };
                     var oModel = new JSONModel(oData);
-                    this.setModel(oModel);
+                    this.setModel(oModel,"sistemas");
                 })
             }
             else{
@@ -56,6 +69,14 @@ sap.ui.define([
                 this.oRouter.navTo("login");     
             }
         },
+
+        onListItemPress: function (oEvent) {
+			var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
+				productPath = oEvent.getSource().getSelectedItem().getBindingContext("products").getPath(),
+				product = productPath.split("/").slice(-1).pop();
+            var oRouter = this.getRouter();
+			oRouter.navTo("detail", {layout: oNextUIState.layout, product: product});
+		},
 
         onAdd: function(){
             

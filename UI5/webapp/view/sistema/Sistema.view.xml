@@ -20,9 +20,15 @@
 
 		<semantic:content>
 			<Table
-				id="idSistemaTable"
 				
-				items="{/sistemas}"
+				mode="SingleSelectMaster"
+				itemPress="onListItemPress"
+				items="{
+					path: 'sistemas>/sistemas',
+					sorter: {
+						path: 'Name'
+					}
+				}"
 				class="sapFSemanticPageAlignContent"
 				width="auto">
 
@@ -42,11 +48,11 @@
 				</columns>
 
 				<items>
-					<ColumnListItem vAlign="Middle">
+					<ColumnListItem vAlign="Middle" type="Navigation">
 						<cells>
-							<Text text="{cdSistema}"/>
-							<Text text="{nmSistema}"/>
-							<Text text="{status}"/>
+							<Text text="{sistemas>cdSistema}"/>
+							<Text text="{sistemas>nmSistema}"/>
+							<Text text="{sistemas>status}"/>
 							<HBox >
 								<Button text="" press="onEdit" icon="sap-icon://edit"/>
 								<Button text="" press="handlerDelete" icon="sap-icon://delete"/>

@@ -94,7 +94,7 @@
             "viewName": "sap.ui.demo.walkthrough.view.App",
             "type": "XML",
             "async": true,
-            "id": "app"
+            "id": "fcl"
         },
         "handleValidation": false,
         "config": {
@@ -127,9 +127,14 @@
                     "target": "login"
                 },
                 {
-                    "pattern": "sistema",
+                    "pattern": ":layout:",
                     "name": "sistema",
                     "target": "sistema"
+                },
+                {
+                    "pattern": "sistemaDetail/{sistema}",
+                    "name": "sistemaDetail",
+                    "target": "sistemaDetail"
                 }
             
             ],
@@ -157,6 +162,13 @@
                     "id": "sistema",
                     "controlAggregation": "pages",
                     "viewName": "sistema.Sistema",
+                    "controlId": "mainLicenca"
+                },
+                "sistemaDetail": {
+                    "parent": "base",
+                    "id": "sistema",
+                    "controlAggregation": "pages",
+                    "viewName": "sistema.SistemaDetail",
                     "controlId": "mainLicenca"
                 }
 
