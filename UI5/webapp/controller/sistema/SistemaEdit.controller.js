@@ -8,95 +8,90 @@ sap.ui.define([
     "sap/m/MessageBox"
 ],function(BaseController,MessageToast,JSONModel,Filter,FilterOperator,Sorter,MessageBox){
     "use strict";
-    return BaseController.extend("sap.ui.demo.walkthrough.sistema.Sistema",{
+    return BaseController.extend("sap.ui.demo.walkthrough.sistema.SistemaEdit",{
         
         onInit: function(){
             debugger
             var token =  localStorage.getItem("token");
+            var oRouter = this.getRouter();
+
+            var oData = {
+                sistema:{
+                    cdSistema:0,
+                    nmSistema:'',
+                    status:false
+                }
+            };
+            var oModel = new JSONModel(oData);
+            this.setModel(oModel,"sistemaEdit");
             if(!token){
                 console.log("Usuario não logado");
-                var oRouter = this.getRouter();
+                
                 oRouter.navTo("login");     
             }
-            this._bDescendingSort = false;
-            var oRouterFor = sap.ui.core.UIComponent.getRouterFor(this);
-
-            // Registra o evento "routeMatched" para a rota "minhaRota"
-            oRouterFor.getRoute("sistema").attachPatternMatched(this.onRotaEntrada, this);
+            oRouter.getRoute("sistemaEdit").attachPatternMatched( this.onRouteMatched, this);
         },
-        
-        onRotaEntrada: function(oEvent) {
-            debugger
-            const url  = this.getURL("SistemaCompleto");
-            var token =  localStorage.getItem("token");
-            var sistemasReturn = [];
-            var oRouter = this.getRouter();
-            sap.ui.core.BusyIndicator.show(0);
-            if(token){
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: JSON.stringify({}),
-                    //crossDomain: true,
-                    headers: {'Token':token},
-                    contentType: "application/json",
-                    success: function (res) {
-                        sistemasReturn = res.Data;
-                        
-                        sap.ui.core.BusyIndicator.hide(0);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        debugger
-                      console.log("Got an error response: " + textStatus + errorThrown);
-                      console.log(jqXHR.responseJSON);
+
+        onRouteMatched: function(oEvent) {
+          var parametro = oEvent.getParameter("arguments").id;
+          const url  = this.getURL("SistemaCompleto");
+          var token =  localStorage.getItem("token");
+          var sistemasReturn = [];
+          var oRouter = this.getRouter();
+          
+          sap.ui.core.BusyIndicator.show(0);
+          if(token){
+              $.ajax({
+                  type: "POST",
+                  url: url,
+                  data: JSON.stringify({cdSistema:parametro}),
+                  //crossDomain: true,
+                  headers: {'Token':token},
+                  contentType: "application/json",
+                  success: function (res) {
+                      sistemasReturn = res.Data[0];
+                      console.log(res.Data[0])
                       sap.ui.core.BusyIndicator.hide(0);
-                      let response = jqXHR.responseJSON;
-                      if(response == undefined){
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("dadosUser");
-                        oRouter.navTo("login");
-                      }
-
-                      if(response.Status == false && response.ResponseCode == 401){
-                        
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("dadosUser");
-                        oRouter.navTo("login");
-                      }
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      debugger
+                    console.log("Got an error response: " + textStatus + errorThrown);
+                    console.log(jqXHR.responseJSON);
+                    sap.ui.core.BusyIndicator.hide(0);
+                    let response = jqXHR.responseJSON;
+                    if(response.Status == false && response.ResponseCode == 401){
+                      
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("dadosUser");
+                      oRouter.navTo("login");
                     }
-                }).done(()=>{
-                    var oData = {
-                        sistemas:sistemasReturn
-                    };
-                    var oModel = new JSONModel(oData);
-                    this.setModel(oModel,"sistemas");
-                })
-            }
-            else{
-                console.log("Usuario não logado");
-                //var oRouter = this.getRouter();
-                sap.ui.core.BusyIndicator.hide(0);
-                this.oRouter.navTo("login");     
-            }
-        },
-
-        onAdd: function(){
-            
-            var oRouter = this.getRouter();
-            
-            oRouter.navTo("sistemaCreate");  
-        },
-
-        onCancel:function(){
-            this.pDialog.then(function(oDialog) {
-                oDialog.close();
-            });
+                  }
+              }).done(()=>{
+                  var oData = {
+                      sistema:sistemasReturn
+                  };
+                 
+                  this.getView().getModel("sistemaEdit").setData(oData)
+              })
+          }
+          else{
+              console.log("Usuario não logado");
+              //var oRouter = this.getRouter();
+              sap.ui.core.BusyIndicator.hide(0);
+              this.oRouter.navTo("login");     
+          }
+          
         },
 
         onCancelEdit:function(){
-            this.pDialogEdit.then(function(oDialog) {
-                oDialog.close();
-            });
+            var token =  localStorage.getItem("token");
+            var oRouter = this.getRouter();
+            if(!token){
+                console.log("Usuario não logado");
+                
+                oRouter.navTo("login");     
+            }
+            oRouter.navTo("sistema");
         },
 
         onSave:function(){
@@ -146,10 +141,10 @@ sap.ui.define([
         },
 
         handlerDelete:function(oEvent){
-            
+            sap.ui.core.BusyIndicator.show(0);
             var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
             if(!token){
+                var oRouter = this.getRouter();
                 console.log("Usuario não logado");
                 oRouter.navTo("login");     
             }
@@ -167,7 +162,6 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.OK,
                     onClose: function (sAction) {
                         if(sAction == "OK"){
-                            sap.ui.core.BusyIndicator.show(0);
                             $.ajax({
                                 type: "DELETE",
                                 url: url,
@@ -177,9 +171,7 @@ sap.ui.define([
                                 contentType: "application/json",
                                 success: function (res) {
                                     sap.ui.core.BusyIndicator.hide(0);
-                                    console.log(this.getView().getModel("sistemas").getData())
                                     MessageToast.show("Deletado com sucesso")
-                                    oRouter.navTo("sistema");
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
                                     console.log("Got an error response: " + textStatus + errorThrown);
@@ -203,17 +195,6 @@ sap.ui.define([
            
         },
 
-        onEdit:function(oEvent){
-            var token =  localStorage.getItem("token");
-            var oRouter = this.getRouter();
-            if(!token){
-                console.log("Usuario não logado");
-                oRouter.navTo("login");     
-            }
-            var sObjectId =  oEvent.getSource().getBindingContext("sistemas").getObject();
-            oRouter.navTo("sistemaEdit",{id:sObjectId.cdSistema}); 
-        },
-
         onHandlerEdit:function(){
             var token =  localStorage.getItem("token");
             if(!token){
@@ -222,19 +203,16 @@ sap.ui.define([
                 oRouter.navTo("login");     
             }
             sap.ui.core.BusyIndicator.show(0);
-            var fragmentId = this.getView().createId("formSistema");
-            var oCdSistema = sap.ui.core.Fragment.byId(fragmentId, "cdSistema").getValue();
-            var oNmSistema = sap.ui.core.Fragment.byId(fragmentId, "nmSistema").getValue();
-            var oControlarUsuario = sap.ui.core.Fragment.byId(fragmentId, "controlarUsuario").getSelected();
-            var oAtivo = sap.ui.core.Fragment.byId(fragmentId, "ativo").getState();
-            var oTipoControle = sap.ui.core.Fragment.byId(fragmentId, "tipoControle").getSelectedButton().getText();
-          
+            var sistemaEdit = this.getView().getModel("sistemaEdit").getData();
             const sistemaObj = {
-                "cdSistema": oCdSistema,
-                "nmSistema": oNmSistema,
-                "status": oAtivo,
-                "controlaUsuarios": oControlarUsuario
+                "cdSistema": sistemaEdit.sistema.cdSistema,
+                "nmSistema": sistemaEdit.sistema.nmSistema,
+                "status": sistemaEdit.sistema.status
             }
+            console.log(this.getView().getModel("sistemaEdit").getData())
+            console.log(sistemaObj)
+            sap.ui.core.BusyIndicator.hide(0);
+           
            const url =  this.getURL("UpdateSistema")
            //var oRouter = this.getRouter();
             $.ajax({

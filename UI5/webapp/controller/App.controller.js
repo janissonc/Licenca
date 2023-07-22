@@ -14,11 +14,12 @@ sap.ui.define([
         onInit: function () {
 			debugger
             var token =  localStorage.getItem("token");
+            var oRouter = this.getOwnerComponent().getRouter();;
             if(!token){
                 console.log("Usuario não logado");
-                var oRouter = this.getOwnerComponent().getRouter();;
                 oRouter.navTo("login");     
             }
+            oRouter.navTo("sistema");  
 		},
     });
 });

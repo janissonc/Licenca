@@ -94,7 +94,7 @@
             "viewName": "sap.ui.demo.walkthrough.view.App",
             "type": "XML",
             "async": true,
-            "id": "fcl"
+            "id": "appLicenca"
         },
         "handleValidation": false,
         "config": {
@@ -127,14 +127,19 @@
                     "target": "login"
                 },
                 {
-                    "pattern": ":layout:",
+                    "pattern": "sistema",
                     "name": "sistema",
                     "target": "sistema"
                 },
                 {
-                    "pattern": "sistemaDetail/{sistema}",
-                    "name": "sistemaDetail",
-                    "target": "sistemaDetail"
+                    "pattern": "sistemaCreate",
+                    "name": "sistemaCreate",
+                    "target": "sistemaCreate"
+                },
+                {
+                    "pattern": "sistemaEdit/{id}",
+                    "name": "sistemaEdit",
+                    "target": "sistemaEdit"
                 }
             
             ],
@@ -164,11 +169,18 @@
                     "viewName": "sistema.Sistema",
                     "controlId": "mainLicenca"
                 },
-                "sistemaDetail": {
+                "sistemaCreate": {
                     "parent": "base",
-                    "id": "sistema",
+                    "id": "sistemaCreate",
                     "controlAggregation": "pages",
-                    "viewName": "sistema.SistemaDetail",
+                    "viewName": "sistema.SistemaCreate",
+                    "controlId": "mainLicenca"
+                },
+                "sistemaEdit": {
+                    "parent": "base",
+                    "id": "sistemaEdit",
+                    "controlAggregation": "pages",
+                    "viewName": "sistema.sistemaEdit",
                     "controlId": "mainLicenca"
                 }
 

@@ -22,12 +22,8 @@
 			<Table
 				
 				mode="SingleSelectMaster"
-				itemPress="onListItemPress"
 				items="{
-					path: 'sistemas>/sistemas',
-					sorter: {
-						path: 'Name'
-					}
+					path: 'sistemas>/sistemas'
 				}"
 				class="sapFSemanticPageAlignContent"
 				width="auto">
@@ -48,7 +44,7 @@
 				</columns>
 
 				<items>
-					<ColumnListItem vAlign="Middle" type="Navigation">
+					<ColumnListItem vAlign="Middle">
 						<cells>
 							<Text text="{sistemas>cdSistema}"/>
 							<Text text="{sistemas>nmSistema}"/>
