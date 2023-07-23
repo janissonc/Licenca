@@ -8,15 +8,22 @@
 	controllerName="sap.ui.demo.walkthrough.controller.ParceiroNegocio"
 	id="ParceiroNegocio"
 	>
-	<Page title="Parceiro de Negócio">
-		<content>
+	<semantic:SemanticPage>
+
+		<semantic:titleHeading>
+			<Title text="Parceiros de Negócio" />
+		</semantic:titleHeading>
+		<semantic:titleMainAction>
+			<semantic:TitleMainAction id="editAction" text="Adicionar" press="onAdd"/>
+		</semantic:titleMainAction>
+
+		<semantic:content>
 			<Table
-				id="idProductsTable"
-				inset="false"
+				mode="SingleSelectMaster"
 				items="{/parceiroNegocio}"
 				class="sapFSemanticPageAlignContent"
-				width="auto">
-
+				width="auto"
+				>
 
 					<columns>
 						<Column>
@@ -25,6 +32,9 @@
 						<Column minScreenWidth="Tablet" demandPopin="true">
 							<Text text="CardName"/>
 						</Column>
+						<Column minScreenWidth="Tablet" demandPopin="true">
+							<Text text="Ações"/>
+						</Column>
 					</columns>
 
 					<items>
@@ -32,10 +42,14 @@
 							<cells>
 								<Text text="{CardCode}"/>
 								<Text text="{CardName}"/>
+								<HBox >
+									<Button class="sapUiSmallMarginEnd" text="" press="onEdit" icon="sap-icon://edit"/>
+									<Button class="sapUiSmallMarginEnd" text="" press="handlerDelete" icon="sap-icon://delete"/>
+								</HBox>
 							</cells>
 						</ColumnListItem>
 					</items>
 			</Table>
-		</content>
-	</Page>
+	</semantic:content>
+	</semantic:SemanticPage>
 </mvc:View>

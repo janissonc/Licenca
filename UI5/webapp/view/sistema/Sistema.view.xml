@@ -50,8 +50,8 @@
 							<Text text="{sistemas>nmSistema}"/>
 							<Text text="{sistemas>status}"/>
 							<HBox >
-								<Button text="" press="onEdit" icon="sap-icon://edit"/>
-								<Button text="" press="handlerDelete" icon="sap-icon://delete"/>
+								<Button class="sapUiSmallMarginEnd" text="" press="onEdit" icon="sap-icon://edit"/>
+								<Button class="sapUiSmallMarginEnd" text="" press="handlerDelete" icon="sap-icon://delete"/>
 							</HBox>
 							
 						</cells>

@@ -18,7 +18,7 @@
 		<semantic:content>
         <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
           <Label text="Nome do Sistema" />
-          <Input value="{/nomeSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
+          <Input value="{sistemaCreate>/sistema/nmSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
           <HBox>        
             <Button text="Salvar" press=".onSave" />
             <Button text="Cancelar" press=".onCancel" />
