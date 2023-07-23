@@ -140,6 +140,11 @@
                     "pattern": "sistemaEdit/{id}",
                     "name": "sistemaEdit",
                     "target": "sistemaEdit"
+                },
+                {
+                    "pattern": "modulo",
+                    "name": "modulo",
+                    "target": "modulo"
                 }
             
             ],
@@ -181,6 +186,13 @@
                     "id": "sistemaEdit",
                     "controlAggregation": "pages",
                     "viewName": "sistema.sistemaEdit",
+                    "controlId": "mainLicenca"
+                },
+                "modulo": {
+                    "parent": "base",
+                    "id": "modulo",
+                    "controlAggregation": "pages",
+                    "viewName": "modulo.Modulo",
                     "controlId": "mainLicenca"
                 }
 

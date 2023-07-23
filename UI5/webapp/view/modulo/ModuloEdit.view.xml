@@ -1,0 +1,39 @@
+<mvc:View
+	height="100%"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:semantic="sap.f.semantic"
+	controllerName="sap.ui.demo.walkthrough.controller.sistema.SistemaEdit"
+	id="sistema.SistemaEdit"
+	>
+	
+	<semantic:SemanticPage>
+
+		<semantic:titleHeading>
+			<Title text="Adicionar sistema" />
+		</semantic:titleHeading>
+
+		<semantic:content>
+        <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
+            <Label text="Nome do Sistema {sistemaEdit>/sistema/cdSistema}" />
+            <Input value="{sistemaEdit>/sistema/cdSistema}" id="cdSistemaEdit" visible="false"/>
+            <Input value="{sistemaEdit>/sistema/nmSistema}" id="nmSistemaEdit" />
+   
+            <Label text="Ativo" />
+           	<Switch state="{sistemaEdit>/sistema/status}" customTextOn="Sim" customTextOff="Não" id="ativoEdit">
+				      <layoutData>
+					      <FlexItemData growFactor="1" />
+				      </layoutData>
+			      </Switch>
+            <HBox>        
+            <Button text="Salvar" press=".onHandlerEdit" />
+            <Button text="Cancelar" press=".onCancelEdit" />
+          </HBox>
+        </VBox>
+     
+        
+  	</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>

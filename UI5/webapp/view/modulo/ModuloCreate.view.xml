@@ -1,0 +1,29 @@
+<mvc:View
+	height="100%"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	xmlns:semantic="sap.f.semantic"
+	controllerName="sap.ui.demo.walkthrough.controller.sistema.SistemaCreate"
+	id="sistema.SistemaCreate"
+	>
+	
+	<semantic:SemanticPage>
+
+		<semantic:titleHeading>
+			<Title text="Adicionar sistema" />
+		</semantic:titleHeading>
+
+		<semantic:content>
+        <VBox  class="SistemaDialog"  alignItems="Center" justifyContent="Center">
+          <Label text="Nome do Sistema" />
+          <Input value="{sistemaCreate>/sistema/nmSistema}" id="nmSistema" class="customFieldWidth" width="90%" />
+          <HBox>        
+            <Button text="Salvar" press=".onSave" />
+            <Button text="Cancelar" press=".onCancel" />
+          </HBox>
+        </VBox>
+   	</semantic:content>
+	</semantic:SemanticPage>
+</mvc:View>
